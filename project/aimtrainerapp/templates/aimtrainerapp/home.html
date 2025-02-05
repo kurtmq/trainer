@@ -2,13 +2,53 @@
 
 {% block content %}
 <div class="home-container">
-    <div class="home-content">
-        <h1>The Best Aim Trainer in the World!</h1>
+    <div class="home-content text-center">
+        <h1 class="display-4 mb-4">The Best Aim Trainer in the World</h1>
+        
+        <div class="leaderboard-section mb-5">
+            <div class="leaderboard-header">
+                <h2>International Leaderboards</h2>
+            </div>
+            <div class="leaderboard-podium">
+                {% if top_scores|length >= 3 %}
+                    <div class="podium-container">
+                        <!-- 2nd Place -->
+                        <div class="podium-spot second">
+                            <div class="podium-badge">2</div>
+                            <div class="podium-name">{{ top_scores.1.name }}</div>
+                            <div class="podium-score">{{ top_scores.1.score }}</div>
+                        </div>
+                        
+                        <!-- 1st Place -->
+                        <div class="podium-spot first">
+                            <div class="podium-badge">1</div>
+                            <div class="podium-name">{{ top_scores.0.name }}</div>
+                            <div class="podium-score">{{ top_scores.0.score }}</div>
+                        </div>
+                        
+                        <!-- 3rd Place -->
+                        <div class="podium-spot third">
+                            <div class="podium-badge">3</div>
+                            <div class="podium-name">{{ top_scores.2.name }}</div>
+                            <div class="podium-score">{{ top_scores.2.score }}</div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
         <div class="btn-container">
-            <a href="{% url 'leaderboard' %}" class="btn btn-primary">Top Scores</a>
-            <a href="{% url 'game' %}" class="btn btn-success">Play Now</a>
-            <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0" class="btn btn-warning" target="_blank">Click for a Surprise</a>
+            <a href="{% url 'game' %}" class="btn btn-primary btn-lg">
+                <i class="fas fa-bullseye me-2"></i>Start Challenge
+            </a>
+            <a href="{% url 'leaderboard' %}" class="btn btn-outline-secondary btn-lg">
+                <i class="fas fa-trophy me-2"></i>Full Leaderboard
+            </a>
         </div>
     </div>
 </div>
+
+
+<!-- Include Font Awesome for icons -->
+
 {% endblock %}

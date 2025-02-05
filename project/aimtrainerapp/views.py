@@ -4,7 +4,9 @@ from django.urls import reverse
 from .models import Score
 
 def home(request):
-    return render(request, 'aimtrainerapp/home.html')
+    # Get top 10 scores ordered by score
+    top_scores = Score.objects.order_by('-score')[:3]
+    return render(request, 'aimtrainerapp/home.html', {'top_scores': top_scores})
 
 def game(request):
     return render(request, 'aimtrainerapp/game.html')

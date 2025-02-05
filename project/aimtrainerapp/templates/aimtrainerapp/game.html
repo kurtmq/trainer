@@ -49,8 +49,11 @@
         const scoreDisplay = document.getElementById("score-value");
         const finalScoreDisplay = document.getElementById("final-score");
         const hiddenScoreInput = document.getElementById("hidden-score");
-        const gameOverPopup = new bootstrap.Modal(document.getElementById("game-over-popup"));
-
+        const gameOverPopup = new bootstrap.Modal(document.getElementById("game-over-popup"), {
+            backdrop: 'static',  // Prevent closing on outside click
+            keyboard: false      // Prevent closing with keyboard (Esc key)
+        });
+        
         let timer;
         let timeLeft = 30;
         let gameActive = false;
