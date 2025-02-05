@@ -1,0 +1,62 @@
+{% extends "aimtrainerapp/base.html" %}
+
+{% block content %}
+<div class="container position-relative" style="height: 100vh; overflow: hidden;">
+    <div id="game-area" class="position-relative w-100 h-100">
+        <!-- Circles will be appended here -->
+    </div>
+</div>
+
+<style>
+    .circle {
+        width: 50px;
+        height: 50px;
+        background-color: blue;
+        border-radius: 50%;
+        position: absolute;
+        transition: background-color 0.2s;
+        cursor: pointer;
+    }
+    .circle:hover {
+        background-color: darkblue;
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const gameArea = document.getElementById("game-area");
+
+        function getRandomPosition() {
+            const maxWidth = gameArea.clientWidth - 50;
+            const maxHeight = gameArea.clientHeight - 50;
+            return {
+                x: Math.random() * maxWidth,
+                y: Math.random() * maxHeight
+            };
+        }
+
+        function createCircle() {
+            const position = getRandomPosition();
+            const circle = document.createElement("div");
+            circle.classList.add("circle");
+            circle.style.left = `${position.x}px`;
+            circle.style.top = `${position.y}px`;
+
+            circle.addEventListener("click", function () {
+                circle.remove();
+                createCircle();
+            });
+
+            gameArea.appendChild(circle);
+        }
+
+        function initGame() {
+            for (let i = 0; i < 3; i++) {
+                createCircle();
+            }
+        }
+
+        initGame();
+    });
+</script>
+{% endblock %}
