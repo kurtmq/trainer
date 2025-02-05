@@ -1,3 +1,14 @@
-<h1>
-    Hello
-</h1>
+{% extends "aimtrainerapp/base.html" %}
+
+{% block content %}
+<div class="home-container">
+    <div class="home-content">
+        <h1>The Best Aim Trainer in the World!</h1>
+        <div class="btn-container">
+            <a href="{% url 'leaderboard' %}" class="btn btn-primary">Top Scores</a>
+            <a href="{% url 'game' %}" class="btn btn-success">Play Now</a>
+            <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0" class="btn btn-warning" target="_blank">Click for a Surprise</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

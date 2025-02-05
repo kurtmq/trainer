@@ -1,0 +1,39 @@
+{% extends "aimtrainerapp/base.html" %}
+
+{% block content %}
+<div class="leaderboard-container">
+    <div class="leaderboard-content">
+        <h1>World's Best Aim Trainers</h1>
+        <div class="leaderboard-table">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Score</th>
+                        <th scope="col">Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for score in scores %}
+                    <tr {% if forloop.counter <= 3 %}class="top-{{ forloop.counter }}"{% endif %}>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ score.name }}</td>
+                        <td>{{ score.score }}</td>
+                        <td>{{ score.date|date:"M d, Y" }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center">No scores yet! Be the first to play!</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="btn-container mt-4">
+            <a href="{% url 'home' %}" class="btn btn-primary">Back to Home</a>
+            <a href="{% url 'game' %}" class="btn btn-success">Play Now</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
