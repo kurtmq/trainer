@@ -11,7 +11,7 @@ ENV PYTHONUNBUFFERED=1
 # Install system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
-    postgresql-client \
+    default-libmysqlclient-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
@@ -25,4 +25,4 @@ COPY . .
 RUN python manage.py collectstatic --noinput
 
 # Run gunicorn
-CMD gunicorn --bind 0.0.0.0:$PORT project.wsgi
+CMD gunicorn --bind 0.0.0.0:$PORT project.wsgi:application
