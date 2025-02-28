@@ -12,11 +12,12 @@ ENV PYTHONUNBUFFERED=1
 RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
     default-libmysqlclient-dev \
+    python3-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
 
 # Copy project
 COPY . .
@@ -24,5 +25,5 @@ COPY . .
 # Collect static files
 RUN python manage.py collectstatic --noinput
 
-# Run gunicorn
-CMD gunicorn --bind 0.0.0.0:$PORT project.wsgi:application
+# Set the entry point for Cloud Run
+CMD exec gunicorn --bind 0.0.0.0:8080 project.wsgi:application
