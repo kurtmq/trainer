@@ -1,4 +1,4 @@
-# Use Python 3.9 as the base image
+# Base image
 FROM python:3.10-slim
 
 # Set working directory
