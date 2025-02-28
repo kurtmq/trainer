@@ -11,7 +11,8 @@ ENV PYTHONUNBUFFERED=1
 # Install system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
-    default-libmysqlclient-dev \
+    libmariadb-dev \
+    pkg-config \
     python3-dev \
     && rm -rf /var/lib/apt/lists/*
 
