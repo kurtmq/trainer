@@ -25,5 +25,10 @@ COPY . .
 # Collect static files
 RUN python manage.py collectstatic --noinput
 
+<<<<<<< HEAD
 # Run migrations and run gunicorn
 CMD python manage.py migrate && gunicorn --bind 0.0.0.0:$PORT project.wsgi
+=======
+# Run gunicorn
+CMD gunicorn --bind 0.0.0.0:$PORT project.wsgi:application
+>>>>>>> 0b5876ce6fbda13563726d20e9196e48eae2b7dc
