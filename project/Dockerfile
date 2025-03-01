@@ -1,33 +1,24 @@
-# Base image
+# Use official Python image as base
 FROM python:3.10-slim
 
 # Set working directory
 WORKDIR /app
 
-# Set environment variables
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
-
-# Install system dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    gcc \
-    libmariadb-dev-compat \
-    libmariadb-dev \
-    mariadb-client \
-    default-libmysqlclient-dev \
-    pkg-config \
-    python3-dev \
-    && rm -rf /var/lib/apt/lists/*
-
-# Install Python dependencies
-COPY requirements.txt .
-RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
-
-# Copy project
+# Copy project files
 COPY . .
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Collect static files
 RUN python manage.py collectstatic --noinput
 
-# Set the entry point for Cloud Run
-CMD exec gunicorn --bind 0.0.0.0:8080 project.wsgi:application
+# Expose port 8080 for Cloud Run
+EXPOSE 8080
+
+# Set environment variables for Cloud Run
+ENV PORT=8080
+ENV PYTHONUNBUFFERED=1
+
+# Start Django server
+CMD ["gunicorn", "--bind", "0.0.0.0:8080", "project.wsgi:application"]
