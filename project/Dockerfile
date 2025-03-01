@@ -20,5 +20,8 @@ EXPOSE 8080
 ENV PORT=8080
 ENV PYTHONUNBUFFERED=1
 
+# Add allowed hosts (Cloud Run URL)
+ENV ALLOWED_HOSTS=trainer-899010289455.us-central1.run.app
+
 # Start Django server
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8080"]
