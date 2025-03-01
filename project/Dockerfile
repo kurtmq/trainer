@@ -20,8 +20,11 @@ EXPOSE 8080
 ENV PORT=8080
 ENV PYTHONUNBUFFERED=1
 
-# Add allowed hosts (Cloud Run URL)
+# Allowed hosts (Cloud Run URL)
 ENV ALLOWED_HOSTS=trainer-899010289455.us-central1.run.app
+
+# Add CSRF trusted origins (Cloud Run URL)
+ENV CSRF_TRUSTED_ORIGINS=https://trainer-899010289455.us-central1.run.app
 
 # Start Django server
 CMD ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8080"]
