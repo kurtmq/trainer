@@ -5,10 +5,9 @@ DEBUG = False
 SECRET_KEY = os.environ.get('SECRET_KEY', 'default-key-for-build')
 
 # Allow Cloud Run URL
-ALLOWED_HOSTS = ['*']  # You should restrict this in production
+ALLOWED_HOSTS = ['*']  
 
-# Database - use Cloud SQL or another managed database
-# For development/testing, use SQLite
+# Database - use SQLite for simplicity
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',

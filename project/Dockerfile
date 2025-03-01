@@ -13,6 +13,8 @@ ENV DJANGO_SETTINGS_MODULE=project.settings_prod
 RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
     default-libmysqlclient-dev \
+    pkg-config \
+    build-essential \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
@@ -25,5 +27,5 @@ COPY . .
 # Collect static files
 RUN python manage.py collectstatic --noinput
 
-# Run migrations and run gunicorn
-CMD python manage.py migrate && gunicorn --bind 0.0.0.0:$PORT project.wsgi
+# Run gunicorn
+CMD gunicorn --bind 0.0.0.0:$PORT project.wsgi
