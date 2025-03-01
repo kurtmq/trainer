@@ -24,4 +24,4 @@ ENV PYTHONUNBUFFERED=1
 ENV ALLOWED_HOSTS=trainer-899010289455.us-central1.run.app
 
 # Start Django server
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8080"]
+CMD ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8080"]
